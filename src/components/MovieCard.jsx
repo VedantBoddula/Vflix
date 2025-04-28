@@ -1,12 +1,10 @@
 import "../css/MovieCard.css"
 import { useMovieContext } from "../contexts/MovieContext"
-import { useState } from "react"
 
 
-const MovieCard = ({movie}) => {  //{} nhi te isliye error arra tha boiii
+const MovieCard = ({movie,fav}) => {  //{} nhi te isliye error arra tha boiii
     const {isFavourite, addToFavourites,removeFromFavourites}  = useMovieContext()
     const favourite = isFavourite(movie.id)
-    const[fav,setfav]=useState(true);
 
     function OnFavouriteClick(e) {
         e.preventDefault()

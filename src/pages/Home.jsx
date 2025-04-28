@@ -3,9 +3,10 @@ import MovieCard from '../components/MovieCard'
 import { useState, useEffect } from "react"
 import '../css/Home.css'
 import { searchMovies, getPopularMovies } from '../services/api'
+import { useMovieContext } from '../contexts/MovieContext'
 
 const Home = () => {
-
+    const { favourites } = useMovieContext();
     const [searchQuery, setSearchQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
@@ -23,7 +24,6 @@ const Home = () => {
             finally {
                 setLoading(false)
             }
-
         }
         loadPopularMovies();
     }, [])
@@ -72,11 +72,18 @@ const Home = () => {
             ) : (
 
                 <div className="movies-grid">
-                    {movies.map((movie) =>
-                        movie.title.toLowerCase().startsWith(searchQuery) && (
-                            <MovieCard movie={movie} key={movie.id} />
-
-                        ))}
+                    {movies.map((movie) =>{
+                        let fav = true;
+                        favourites.forEach(favmovie => {
+                            if(favmovie.id==movie.id){
+                                fav=false;
+                            }
+                        });
+                        return movie.title.toLowerCase().startsWith(searchQuery) && (
+                            <MovieCard movie={movie} key={movie.id} fav={fav}/>
+                        )
+                    })
+                    }
                 </div>
             )}
         </div>

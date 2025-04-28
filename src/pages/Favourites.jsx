@@ -15,7 +15,7 @@ const Favourites = () => {
         <div className="movies-grid">
           {favourites.map((movie) =>(
             
-              <MovieCard movie={movie} key={movie.id} />
+              <MovieCard movie={movie} key={movie.id} fav={false} />
 
             ))}
         </div>
